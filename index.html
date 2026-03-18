@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fly Fishing Science — CADDIS-GR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0b0f18;
+      --surface:  #111827;
+      --surface2: #1a2336;
+      --border:   #1f2f4a;
+      --border2:  #2a3f60;
+      --text:     #c8d8f0;
+      --muted:    #607090;
+      --white:    #f0f6ff;
+      --blue:     #3b9eff;
+      --uv:       #7c5cff;
+      --green:    #34d399;
+      --orange:   #ff6b1a;
+      --pink:     #ff3da0;
+      --yellow:   #fbbf24;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--blue);
+      letter-spacing: .08em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 64px 0 48px;
+      position: relative;
+    }
+    .hero-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 20% 50%, rgba(124,92,255,.1) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 75% 40%, rgba(59,158,255,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      opacity: .8;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--blue), var(--uv));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .hero-desc strong { color: var(--text); }
+
+    .rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border2), transparent);
+      margin: 8px 0 48px;
+    }
+
+    /* ── 카테고리 섹션 ── */
+    .cat-section { margin-bottom: 56px; }
+
+    .cat-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .cat-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .cat-icon.vision   { background: rgba(124,92,255,.15); border: 1px solid rgba(124,92,255,.3); }
+    .cat-icon.biology  { background: rgba(52,211,153,.12); border: 1px solid rgba(52,211,153,.3); }
+    .cat-icon.entomo   { background: rgba(251,191,36,.1);  border: 1px solid rgba(251,191,36,.25); }
+    .cat-icon.physics  { background: rgba(59,158,255,.12); border: 1px solid rgba(59,158,255,.3); }
+
+    .cat-title-wrap {}
+    .cat-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .cat-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    /* 아티클 카드 */
+    .articles { display: flex; flex-direction: column; gap: 12px; }
+
+    .article-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-decoration: none;
+      display: flex; align-items: flex-start;
+      gap: 16px;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .article-card:hover {
+      border-color: var(--border2);
+      background: var(--surface2);
+      transform: translateY(-2px);
+    }
+    .article-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--border2);
+      padding-top: 3px;
+      flex-shrink: 0;
+      width: 24px;
+    }
+    .article-body { flex: 1; }
+    .article-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .article-tags {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: .04em;
+    }
+    .tag.uv     { background: rgba(124,92,255,.15); color: var(--uv);    border: 1px solid rgba(124,92,255,.25); }
+    .tag.fl     { background: rgba(255,107,26,.15); color: var(--orange); border: 1px solid rgba(255,107,26,.25); }
+    .tag.blue   { background: rgba(59,158,255,.12); color: var(--blue);   border: 1px solid rgba(59,158,255,.25); }
+    .tag.green  { background: rgba(52,211,153,.1);  color: var(--green);  border: 1px solid rgba(52,211,153,.25); }
+    .tag.yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.25); }
+
+    .article-arrow {
+      color: var(--border2);
+      font-size: 18px;
+      padding-top: 2px;
+      transition: color .2s;
+    }
+    .article-card:hover .article-arrow { color: var(--blue); }
+
+    /* 준비중 카드 */
+    .article-card.wip {
+      opacity: .45;
+      cursor: default;
+      pointer-events: none;
+    }
+    .wip-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(96,112,144,.15);
+      border: 1px solid rgba(96,112,144,.3);
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    /* ── 관련 저장소 ── */
+    .related {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 30px;
+      margin-bottom: 48px;
+    }
+    .related h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .repo-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      text-decoration: none;
+      font-size: 13px;
+      color: var(--text);
+      transition: border-color .2s, color .2s;
+    }
+    .repo-link:hover { border-color: var(--border2); color: var(--blue); }
+    .repo-link .repo-icon { font-size: 15px; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .footer-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+    .footer-link {
+      font-size: 12px; color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-link:hover { color: var(--blue); }
+
+    /* 애니메이션 */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero        { animation: fadeUp .5s ease both; }
+    .cat-section { animation: fadeUp .5s ease both; }
+    .cat-section:nth-child(1) { animation-delay: .08s; }
+    .cat-section:nth-child(2) { animation-delay: .14s; }
+    .cat-section:nth-child(3) { animation-delay: .20s; }
+    .cat-section:nth-child(4) { animation-delay: .26s; }
+    .related     { animation: fadeUp .5s .30s ease both; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="https://caddis-gr.github.io/fly-fishing-hub/">← CADDIS-GR HUB</a>
+    <div class="nav-links">
+      <a href="https://github.com/CADDIS-GR/fly-fishing-science">GitHub</a>
+      <a href="https://caddis-gr.github.io/fishing-log/">Fishing Log</a>
+      <a href="https://caddis-gr.github.io/fly-tying-archive/">Tying Archive</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-eyebrow">CADDIS-GR · Fly Fishing Science</div>
+    <h1>플라이 낚시<br><em>과학·이론</em> 아카이브</h1>
+    <p class="hero-desc">
+      <strong>"왜 그런가"에 답하는</strong> 레퍼런스 저장소입니다.<br>
+      어류 시각·생태·물리학 등 배경 지식을 체계적으로 축적합니다.
+    </p>
+  </header>
+  <div class="rule"></div>
+
+  <!-- ── VISION ── -->
+  <section class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon vision">🔆</div>
+      <div class="cat-title-wrap">
+        <div class="cat-title">Vision · 시각·빛·색상</div>
+        <div class="cat-subtitle">vision/</div>
+      </div>
+    </div>
+    <div class="articles">
+      <a class="article-card" href="./vision/underwater-light-fluorescence.html">
+        <div class="article-num">01</div>
+        <div class="article-body">
+          <div class="article-title">수중 빛의 감쇄와 형광(Fluorescence) 플라이의 효과</div>
+          <div class="article-meta">
+            출처: Tactical Fly Fisher · Colin Kageyama — <em>What Fish See</em> · Jason Randall — <em>Trout Sense</em>
+          </div>
+          <div class="article-tags">
+            <span class="tag uv">UV / 자외선</span>
+            <span class="tag fl">Fluorescence</span>
+            <span class="tag blue">수중 광학</span>
+            <span class="tag fl">Hot Spot</span>
+          </div>
+        </div>
+        <div class="article-arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── BIOLOGY ── -->
+  <section class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon biology">🐟</div>
+      <div class="cat-title-wrap">
+        <div class="cat-title">Biology · 어류 생태·행동</div>
+        <div class="cat-subtitle">biology/</div>
+      </div>
+    </div>
+    <div class="articles">
+      <div class="article-card wip">
+        <div class="article-num">01</div>
+        <div class="article-body">
+          <div class="article-title">송어의 섭식 크기 선호와 플라이 사이즈 전략</div>
+          <div class="article-meta">출처: Tactical Fly Fisher — Trout Feeding Science Series</div>
+          <div class="article-tags">
+            <span class="tag green">섭식 습성</span>
+            <span class="tag blue">플라이 사이즈</span>
+            <span class="wip-badge">준비중</span>
+          </div>
+        </div>
+        <div class="article-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ENTOMOLOGY ── -->
+  <section class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon entomo">🦟</div>
+      <div class="cat-title-wrap">
+        <div class="cat-title">Entomology · 수서곤충·먹이생물</div>
+        <div class="cat-subtitle">entomology/</div>
+      </div>
+    </div>
+    <div class="articles">
+      <div class="article-card wip">
+        <div class="article-num">01</div>
+        <div class="article-body">
+          <div class="article-title">자료 준비중</div>
+          <div class="article-meta">해치 사이클, 먹이생물 동정</div>
+          <div class="article-tags">
+            <span class="wip-badge">준비중</span>
+          </div>
+        </div>
+        <div class="article-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHYSICS ── -->
+  <section class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon physics">⚙️</div>
+      <div class="cat-title-wrap">
+        <div class="cat-title">Physics · 라인·플라이 물리학</div>
+        <div class="cat-subtitle">physics/</div>
+      </div>
+    </div>
+    <div class="articles">
+      <div class="article-card wip">
+        <div class="article-num">01</div>
+        <div class="article-body">
+          <div class="article-title">자료 준비중</div>
+          <div class="article-meta">싱킹 라인 거동, 드리프트 역학</div>
+          <div class="article-tags">
+            <span class="wip-badge">준비중</span>
+          </div>
+        </div>
+        <div class="article-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 관련 저장소 -->
+  <div class="related">
+    <h2>🔗 CADDIS-GR 관련 저장소</h2>
+    <div class="repo-grid">
+      <a class="repo-link" href="https://caddis-gr.github.io/fly-fishing-hub/">
+        <span class="repo-icon">🏠</span> fly-fishing-hub
+      </a>
+      <a class="repo-link" href="https://caddis-gr.github.io/fishing-log/">
+        <span class="repo-icon">📓</span> fishing-log
+      </a>
+      <a class="repo-link" href="https://caddis-gr.github.io/fly-tying-archive/">
+        <span class="repo-icon">🪡</span> fly-tying-archive
+      </a>
+      <a class="repo-link" href="https://caddis-gr.github.io/fishing-technique/">
+        <span class="repo-icon">🎣</span> fishing-technique
+      </a>
+      <a class="repo-link" href="https://caddis-gr.github.io/trout-feeding-science/">
+        <span class="repo-icon">🔬</span> trout-feeding-science
+      </a>
+      <a class="repo-link" href="https://caddis-gr.github.io/tying-recipe/">
+        <span class="repo-icon">📋</span> tying-recipe
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">CADDIS-GR · FLY FISHING SCIENCE</div>
+    <a class="footer-link" href="https://github.com/CADDIS-GR/fly-fishing-science">
+      github.com/CADDIS-GR/fly-fishing-science
+    </a>
+  </footer>
+
+</div>
+</body>
+</html>
