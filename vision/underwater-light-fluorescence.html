@@ -532,6 +532,60 @@
         원문 PDF 다운로드
       </a>
     </div>
+
+    <!-- 유튜브 썸네일 링크 -->
+    <a href="https://youtu.be/gJ-w5PWnLjY?si=9iqQ0VjxUv4xA9yH"
+       target="_blank" rel="noopener"
+       style="
+         display: block;
+         margin-top: 24px;
+         border-radius: 12px;
+         overflow: hidden;
+         box-shadow: var(--shadow-md);
+         border: 1px solid var(--border);
+         aspect-ratio: 16/9;
+         width: 100%;
+         position: relative;
+         background: #000;
+         text-decoration: none;
+       ">
+      <img
+        src="https://img.youtube.com/vi/gJ-w5PWnLjY/maxresdefault.jpg"
+        alt="수중 빛의 감쇄와 형광 플라이의 효과 — Tactical Fly Fisher"
+        style="width:100%; height:100%; object-fit:cover; display:block; opacity:.92; transition: opacity .2s;"
+        onmouseover="this.style.opacity='.75'"
+        onmouseout="this.style.opacity='.92'"
+      >
+      <!-- 재생 버튼 오버레이 -->
+      <div style="
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        pointer-events: none;
+      ">
+        <div style="
+          width: 64px; height: 64px;
+          background: rgba(200,40,10,.88);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 4px 20px rgba(0,0,0,.4);
+        ">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </div>
+      <!-- 채널명 라벨 -->
+      <div style="
+        position: absolute; bottom: 12px; left: 14px;
+        background: rgba(0,0,0,.6);
+        color: #fff;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        letter-spacing: .04em;
+      ">▶ Tactical Fly Fisher — YouTube에서 보기</div>
+    </a>
   </header>
 
   <div class="rule"></div>
